@@ -1,0 +1,44 @@
+# Maintainer: Denis Ryabyy <vv1r0x@gmail.com>
+pkgname=qt5-qtdeclarative
+pkgver=5.8.0
+pkgrel=0
+pkgdesc="Qt5 - QtWebChannel components"
+url="http://qt-project.org/"
+arch="all"
+license="LGPLv2 with exceptions or GPLv3 with exceptions"
+depends=""
+depends_dev=""
+makedepends="$depends_dev
+	qt5-qtbase-dev
+	"
+subpackages="$pkgname-dev"
+
+_ver=${pkgver/_/-}
+_ver=${_ver/beta0/beta}
+_ver=${_ver/rc0/rc}
+_V=${_ver/rc/RC}
+case $pkgver in
+*_beta*|*_rc*) _rel=development_releases;;
+*) _rel=official_releases;;
+esac
+
+source="https://download.qt.io/official_releases/qt/${_V%.*}/$_V/submodules/qtdeclarative-opensource-src-$_V.tar.xz"
+
+builddir="$srcdir"/qtdeclarative-opensource-src-$_V
+
+build() {
+	cd "$builddir"
+	qmake-qt5 || return 1
+	make || return 1
+}
+
+package() {
+	cd "$builddir"
+	make install INSTALL_ROOT="$pkgdir" || return 1
+	# remove rpath
+#	chrpath --delete "$pkgdir"/usr/lib/qt5/libexec/* || return 1
+	sed -i -e 's:-L/home[^ ]\+::g' "$pkgdir"/usr/lib/pkgconfig/*.pc
+}
+md5sums="4f55b3617abdff14706d02d761d5a0aa  qtdeclarative-opensource-src-5.8.0.tar.xz"
+sha256sums="32941eb9ad12d8735dfc64de8b50b5ab830a6d8705a421c57369de7cb5708a46  qtdeclarative-opensource-src-5.8.0.tar.xz"
+sha512sums="5f3b2d03778cff29ea573ac6bee149892da4d26c7154e4ea3756ac782d7db5a3a5cb733d3285351f50f97bda9366c60f38c88c00fff2deaa7856e63a080937fc  qtdeclarative-opensource-src-5.8.0.tar.xz"
