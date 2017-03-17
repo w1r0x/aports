@@ -1,0 +1,44 @@
+# Maintainer: Denis Ryabyy <vv1r0x@gmail.com>
+pkgname=qt5-qtwebchannel
+pkgver=5.8.0
+pkgrel=0
+pkgdesc="Qt5 - QtWebChannel components"
+url="http://qt-project.org/"
+arch="all"
+license="LGPLv2 with exceptions or GPLv3 with exceptions"
+depends=""
+depends_dev=""
+makedepends="$depends_dev
+	qt5-qtbase-dev
+	"
+subpackages="$pkgname-dev"
+
+_ver=${pkgver/_/-}
+_ver=${_ver/beta0/beta}
+_ver=${_ver/rc0/rc}
+_V=${_ver/rc/RC}
+case $pkgver in
+*_beta*|*_rc*) _rel=development_releases;;
+*) _rel=official_releases;;
+esac
+
+source="https://download.qt.io/official_releases/qt/${_V%.*}/$_V/submodules/qtwebchannel-opensource-src-$_V.tar.xz"
+
+builddir="$srcdir"/qtwebchannel-opensource-src-$_V
+
+build() {
+	cd "$builddir"
+	qmake-qt5 || return 1
+	make || return 1
+}
+
+package() {
+	cd "$builddir"
+	make install INSTALL_ROOT="$pkgdir" || return 1
+	# remove rpath
+#	chrpath --delete "$pkgdir"/usr/lib/qt5/libexec/* || return 1
+	sed -i -e 's:-L/home[^ ]\+::g' "$pkgdir"/usr/lib/pkgconfig/*.pc
+}
+md5sums="9cb74ebedb6e7ca1f2a4dc3f8e2fbc08  qtwebchannel-opensource-src-5.8.0.tar.xz"
+sha256sums="5bf5b15413baa235ee2cbfd136ea3b9303b32879b54f9f25bfb4dc96d37d0b4a  qtwebchannel-opensource-src-5.8.0.tar.xz"
+sha512sums="3f9b8fa1897ebce5065e38f9f324ede1d2dfb4e13b90dc832a7dd2dfd1f18934d976ab3654fd2fa9fd788e48dec6ebf5766862900cd1523a11f063c22041260a  qtwebchannel-opensource-src-5.8.0.tar.xz"
