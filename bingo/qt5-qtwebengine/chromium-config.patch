@@ -1,0 +1,31 @@
+--- ./src/core/gyp_run.pro.orig
++++ ./src/core/gyp_run.pro
+@@ -19,6 +19,28 @@
+ GYP_CONFIG += qtwe_process_name_debug=$$QTWEBENGINEPROCESS_NAME_DEBUG
+ GYP_CONFIG += qtwe_process_name_release=$$QTWEBENGINEPROCESS_NAME_RELEASE
+ GYP_CONFIG += disable_glibcxx_debug=1
++GYP_CONFIG += use_system_yasm=1
++GYP_CONFIG += disable_glibc=1
++GYP_CONFIG += linux_strip_binary=1
++GYP_CONFIG += linux_use_bundled_binutils=0
++GYP_CONFIG += linux_use_bundled_gold=0
++GYP_CONFIG += linux_use_gold_flags=0
++GYP_CONFIG += icu_use_data_file_flag=1
++GYP_CONFIG += logging_like_official_build=1
++GYP_CONFIG += proprietary_codecs=1
++GYP_CONFIG += use_allocator=none
++GYP_CONFIG += use_experimental_allocator_shim=false
++GYP_CONFIG += use_gnome_keyring=0
++GYP_CONFIG += usb_ids_path=/usr/share/hwdata/usb.ids
++GYP_CONFIG += use_mojo=0 
++GYP_CONFIG += use_gconf=0
++GYP_CONFIG += use_sysroot=0
++GYP_CONFIG += use_pulseaudio=0
++GYP_CONFIG += enable_hotwording=0
++GYP_CONFIG += disable_fatal_linker_warnings=1
++GYP_CONFIG += disable_nacl=1
++GYP_CONFIG += disable_pnacl=1
++GYP_CONFIG += disable_sse2=1
+ !contains(QT_CONFIG, no-pkg-config): GYP_ARGS += "-D pkg-config=\"$$pkgConfigExecutable()\""
+ 
+ !webcore_debug: GYP_CONFIG += remove_webcore_debug_symbols=1
