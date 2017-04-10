@@ -8,9 +8,9 @@ arch="all"
 license="LGPLv2 with exceptions or GPLv3 with exceptions"
 depends=""
 depends_dev="
-	qt5-qtbase-dev
-	qt5-qtwebchannel-dev
-	qt5-qtdeclarative-dev
+	qt5-qtbase
+	qt5-qtwebchannel
+	qt5-qtdeclarative
 	alsa-lib-dev
 	harfbuzz-dev
 	zlib-dev
