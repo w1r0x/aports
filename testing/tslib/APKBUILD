@@ -1,0 +1,26 @@
+pkgname=tslib
+pkgver=1.9
+pkgrel=0
+subpackages="$pkgname-doc"
+pkgdesc="C library for filtering touchscreen events"
+url="https://github.com/kergoth/tslib"
+arch="all"
+license="GPL2"
+makedepends="automake autoconf libtool linux-headers"
+
+source="${pkgname}-${pkgver}.tar.gz::https://github.com/kergoth/tslib/releases/download/1.9/${pkgname}-${pkgver}.tar.gz"
+builddir="$srcdir"/${pkgname}-${pkgver}
+
+build() {
+    cd "$builddir"
+    ./autogen.sh && ./configure --prefix /usr && make
+}
+
+package() {
+    cd "$builddir"
+    make DESTDIR="$pkgdir" install
+}
+
+md5sums="28a4e1bd6ef50f0eb4be3f8c93614a23  tslib-1.9.tar.gz"
+sha256sums="91713c129f70eb576efcb4ff60cd421ffdac5263c56247f1b1801758f11fb3ca  tslib-1.9.tar.gz"
+sha512sums="175248ea6ee1e263dc443f34fd14db8e5710256f0adc30269eab2e3a7d9f770b71fb3ce52a3a38c98e72abed26ec7741050aa6bca0c2dbf9cda8633794fd7d13  tslib-1.9.tar.gz"
