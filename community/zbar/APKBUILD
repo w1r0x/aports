@@ -1,0 +1,40 @@
+# Contributor: Denis Ryabyy <vv1r0x@gmail.com>
+# Maintainer: Denis Ryabyy <vv1r0x@gmail.com>
+pkgname=zbar
+pkgver=0.10
+pkgrel=0
+pkgdesc="ZBar bar code reader"
+url="http://zbar.sourceforge.net"
+arch="all"
+license="GNU LGPL 2.1"
+depends="graphicsmagick"
+makedepends="linux-headers graphicsmagick-dev"
+subpackages="$pkgname-dev $pkgname-doc"
+source="http://vcs.bingo-boom.ru/bb_clubs/zbar/repository/archive.tar.bz2 qrdec.patch"
+builddir="$srcdir/zbar-master-57fafcbad3a8f3d96627f2a21ed4b0f1aab14910"
+options="!check"
+
+prepare() {
+  cd $builddir
+  default_prepare 
+}
+
+build() {
+  cd $builddir
+  ./configure --enable-video \
+              --prefix=/usr \
+              --libdir=/usr/lib \
+              --enable-codes=qrcode \
+              --with-gnu-ld \
+              --without-jpeg \
+              --without-npapi \
+              --without-gtk \
+              --without-python \
+              --without-qt \
+              --without-java
+  make
+  make DESTDIR="$pkgdir" install
+}
+
+sha512sums="86f5f3f2477eab0b12409a7c2bb714759816204095cc2c1cbe992ae61d8e0ce0c1367e56d3c5b30b39402c6c9512406ee8f40ddd7ab9cf4ff40ab93dec840bd7  archive.tar.bz2
+412b4c5df54dd23319aa560d2a9c1817026c6243d2c291b82aa7ad95baf2be41a47cbafe7c8ff896bdda7ae3b774857bdaad20afc227670357502a09ec69e195  qrdec.patch"
