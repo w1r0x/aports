@@ -10,7 +10,7 @@ license="GNU LGPL 2.1"
 depends="graphicsmagick"
 makedepends="linux-headers graphicsmagick-dev autoconf automake libtool gettext-dev zlib-dev xmlto"
 subpackages="$pkgname-dev $pkgname-doc"
-source="https://github.com/ZBar/ZBar/archive/master.zip qrdec.patch configure.ac.patch"
+source="https://github.com/ZBar/ZBar/archive/master.zip qrdec.patch configure.ac.patch v4l2.patch"
 builddir="$srcdir/ZBar-master"
 options="!check"
 
@@ -44,4 +44,5 @@ build() {
 
 sha512sums="9b5170c2c392b2df279e9522b708ae7482ffdeb885de11df9e0af7e28c40688844dda83bb30c3f01f34d9c52249d64947b92f6b329b3f32d90e30a2de6fae2b9  master.zip
 412b4c5df54dd23319aa560d2a9c1817026c6243d2c291b82aa7ad95baf2be41a47cbafe7c8ff896bdda7ae3b774857bdaad20afc227670357502a09ec69e195  qrdec.patch
-5301a801a76174b4f71914823376bc8af9a360cfe19c5164ce5570bbad8166ab88897626fb0216256cb5cef0f0a0d8db9a0f47b1630e709daeccd751d94313b6  configure.ac.patch"
+5301a801a76174b4f71914823376bc8af9a360cfe19c5164ce5570bbad8166ab88897626fb0216256cb5cef0f0a0d8db9a0f47b1630e709daeccd751d94313b6  configure.ac.patch
+0e789f32054bdf1eff337ee7d91ddc7c67eb03306cb1a92f833dda2fcbeffbbb98335f31b285ce24591243ac1667b4c9b3f2d3b67f4e0f1be6f18a5851fe0f4e  v4l2.patch"
