@@ -8,10 +8,10 @@ url="http://zbar.sourceforge.net"
 arch="all"
 license="GNU LGPL 2.1"
 depends="graphicsmagick"
-makedepends="linux-headers graphicsmagick-dev"
+makedepends="linux-headers graphicsmagick-dev autoconf automake libtool gettext-dev zlib-dev xmlto"
 subpackages="$pkgname-dev $pkgname-doc"
-source="http://vcs.bingo-boom.ru/bb_clubs/zbar/repository/archive.tar.bz2 qrdec.patch"
-builddir="$srcdir/zbar-master-57fafcbad3a8f3d96627f2a21ed4b0f1aab14910"
+source="https://github.com/ZBar/ZBar/archive/master.zip qrdec.patch configure.ac.patch"
+builddir="$srcdir/ZBar-master"
 options="!check"
 
 prepare() {
@@ -21,6 +21,12 @@ prepare() {
 
 build() {
   cd $builddir
+  libtoolize
+  aclocal
+  autoheader 
+  autoconf
+  automake --add-missing
+  
   ./configure --enable-video \
               --prefix=/usr \
               --libdir=/usr/lib \
@@ -36,5 +42,6 @@ build() {
   make DESTDIR="$pkgdir" install
 }
 
-sha512sums="86f5f3f2477eab0b12409a7c2bb714759816204095cc2c1cbe992ae61d8e0ce0c1367e56d3c5b30b39402c6c9512406ee8f40ddd7ab9cf4ff40ab93dec840bd7  archive.tar.bz2
-412b4c5df54dd23319aa560d2a9c1817026c6243d2c291b82aa7ad95baf2be41a47cbafe7c8ff896bdda7ae3b774857bdaad20afc227670357502a09ec69e195  qrdec.patch"
+sha512sums="9b5170c2c392b2df279e9522b708ae7482ffdeb885de11df9e0af7e28c40688844dda83bb30c3f01f34d9c52249d64947b92f6b329b3f32d90e30a2de6fae2b9  master.zip
+412b4c5df54dd23319aa560d2a9c1817026c6243d2c291b82aa7ad95baf2be41a47cbafe7c8ff896bdda7ae3b774857bdaad20afc227670357502a09ec69e195  qrdec.patch
+5301a801a76174b4f71914823376bc8af9a360cfe19c5164ce5570bbad8166ab88897626fb0216256cb5cef0f0a0d8db9a0f47b1630e709daeccd751d94313b6  configure.ac.patch"
