@@ -1,0 +1,22 @@
+--- a/modules/codec/avcodec/hwdummy.c
++++ b/modules/codec/avcodec/hwdummy.c
+@@ -113,7 +113,7 @@
+         vlc_fourcc_t fourcc;
+     } u = { .fourcc = fmt->i_codec };
+ 
++    AVVDPAUContext *hwctx = calloc(1, sizeof (*hwctx)); 
+-    AVVDPAUContext *hwctx = av_vdpau_alloc_context();
+     if (unlikely(hwctx == NULL))
+        return VLC_ENOMEM;
+ 
+--- a/modules/hw/vdpau/avcodec.c
++++ b/modules/hw/vdpau/avcodec.c
+@@ -285,7 +285,7 @@
+     if (unlikely(sys == NULL))
+        return VLC_ENOMEM;
+ 
++    sys->context = calloc(1, sizeof (*sys->context)); 
+-    sys->context = av_vdpau_alloc_context();
+     if (unlikely(sys->context == NULL))
+     {
+         free(sys);
